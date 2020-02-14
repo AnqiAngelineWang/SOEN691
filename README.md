@@ -23,7 +23,7 @@ II. Materials and Methods
 ---
 Dataset:
 
-200+ Financial Indicators of US stocks (2014-2018) (Reference:https://www.kaggle.com/cnic92/200-financial-indicators-of-us-stocks-20142018/data)
+200+ Financial Indicators of US stocks (2014-2018)[3]
 This Data repo contains five datasets(2014-2018), each with 200+ financial indicators, that are commonly found in the 10-K filings releases yearly by publicly-traded companies. And there are approximately 4000 data samples in each dataset.
 
 The third-to-last column of these datasets is ‘sector’, which lists the sector of each stock. In the US stock market, each company is part of a sector that classifies it in a macro-area. Since all the sectors have been collected (Basic Materials, Communication Services, Consumer Cyclical, Consumer Defensive, Energy, Financial Services, Healthcare, Industrial, Real Estate, Technology, and Utilities), we could choose to perform per-sector analyses and comparisons. Because stokes of different sectors may be affected by different financial indicators. 
@@ -57,4 +57,6 @@ Ref:
 [1] Patel, Jigar, et al. "Predicting stock and stock price index movement using trend deterministic data preparation and machine learning techniques." Expert systems with applications 42.1 (2015): 259-268.
 
 [2] Chatzis, Sotirios P., et al. "Forecasting stock market crisis events using deep and statistical machine learning techniques." Expert Systems with Applications 112 (2018): 353-371.
+
+[3] https://www.kaggle.com/cnic92/200-financial-indicators-of-us-stocks-20142018/data
 
