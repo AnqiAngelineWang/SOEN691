@@ -21,7 +21,7 @@ Possible challenges within this dataset may be: 1) The financial indicators may 
 
 II. Materials and Methods 
 ---
-- Dataset:
+Dataset:
 
 200+ Financial Indicators of US stocks (2014-2018) (Reference:https://www.kaggle.com/cnic92/200-financial-indicators-of-us-stocks-20142018/data)
 This Data repo contains five datasets(2014-2018), each with 200+ financial indicators, that are commonly found in the 10-K filings releases yearly by publicly-traded companies. And there are approximately 4000 data samples in each dataset.
@@ -37,7 +37,7 @@ Data Preprocessing: The raw data will be preprocessed before feeding into models
 Model Tuning: We will conduct grid search to tune the hyperparameters of each model with k-fold validation.
 Results comparison: We will report and analyze the performance of different algorithms via several metrics including accuracy, recall, precision, and f1 score.
 
-- Technology:
+Technology:
 
 For the libraries, we choose the MLlib and Scikit-learn.
 MLlib is Apache Spark's scalable machine learning library which is usable in different languages and platforms
@@ -53,6 +53,8 @@ Linear Support Vector Machine:
 Naive Bayes:
 
 Ref:
+
 [1] Patel, Jigar, et al. "Predicting stock and stock price index movement using trend deterministic data preparation and machine learning techniques." Expert systems with applications 42.1 (2015): 259-268.
+
 [2] Chatzis, Sotirios P., et al. "Forecasting stock market crisis events using deep and statistical machine learning techniques." Expert Systems with Applications 112 (2018): 353-371.
 
