@@ -1,15 +1,17 @@
 
-#Proposal 
-##Abstract
+Proposal
+===
+Abstract
+---
 The US Stock market is a hot-debated topic in people's normal lives. Many companies are facing fierce competition and costly in order to be outstanding in the market. This project is going to analyze US Stocks between 2014 and 2018 from CSV datasets. It will reveal the financial indicators for the stock market trends. This project makes use of machine learning data analytic techniques to reveal the trend of datasets. It contains computational methods implementing by python language. Through this project, four group members aim to generate predictive US stock developments, and achieve a more visible, accessible stock financial services to the general public.
 
-##I. Introduction
-
+I. Introduction
+---
 The main objective of this course project is to leverage the algorithms and techniques we learned from class to analyze real-world data, compare the performance of different algorithms, techniques and interpret the results. To achieve this goal, we select the “Financial Indicators of the US stocks” dataset as our data. Detailed information about this dataset is given in the following section. Selected machine learning classification algorithms will be implemented by Spark and Scikit-learn libraries in our project. 
 
 The rapid progress in machine learning has revealed its strength in handling voluminous data streams, extracting informative features and tackling complexities. Various kinds of fields, such as computer vision, natural language processing, robots have seen the huge success of the advanced machine learning models.
 
-A rich line of machine learning approaches has also been introduced to predict the stock price in this area. Jigar et al (2015) compare four prediction models, Artificial Neural Network (ANN), Support Vector Machine (SVM), random forest and naive-Bayes regarding the problem of prediction stock price index movement. Sotirios et al (2018) analyzed the Extreme Gradient Boosting and Deep Neural Networks on the stock price prediction.
+A rich line of machine learning approaches has also been introduced to predict the stock price in this area. Jigar et al (2015)[1] compare four prediction models, Artificial Neural Network (ANN), Support Vector Machine (SVM), random forest and naive-Bayes regarding the problem of prediction stock price index movement. Sotirios et al (2018)[2] analyzed the Extreme Gradient Boosting and Deep Neural Networks on the stock price prediction.
 
 Consider the unexpected events may have severe impacts on short-term stock price, 
 rather than look at the historical stock price and treat it as a regression problem, we hope to test if we can provide long term gain prediction via machine learning methods. The main task is to tell if the stock will be worth buying based on the sufficient financial information of one company.
@@ -17,8 +19,10 @@ rather than look at the historical stock price and treat it as a regression prob
 Possible challenges within this dataset may be: 1) The financial indicators may not be sufficient enough to provide the hidden features to do the prediction. Which means that the models may encounter underfitting issues. If so, we will dig deep into the features and try to interpret the results;  2) The data of different years may not follow the i.i.d assumption, which means that the models trained on the past years may not be able to achieve good performance in the following years. Aware of this issue, we will probably embed time series analysis or domain adaptation techniques into the model and help to improve the performance.
 
 
-##II. Materials and Methods 
-###Dataset: 
+II. Materials and Methods 
+---
+- Dataset:
+
 200+ Financial Indicators of US stocks (2014-2018) (Reference:https://www.kaggle.com/cnic92/200-financial-indicators-of-us-stocks-20142018/data)
 This Data repo contains five datasets(2014-2018), each with 200+ financial indicators, that are commonly found in the 10-K filings releases yearly by publicly-traded companies. And there are approximately 4000 data samples in each dataset.
 
@@ -33,7 +37,8 @@ Data Preprocessing: The raw data will be preprocessed before feeding into models
 Model Tuning: We will conduct grid search to tune the hyperparameters of each model with k-fold validation.
 Results comparison: We will report and analyze the performance of different algorithms via several metrics including accuracy, recall, precision, and f1 score.
 
-###Technology:
+- Technology:
+
 For the libraries, we choose the MLlib and Scikit-learn.
 MLlib is Apache Spark's scalable machine learning library which is usable in different languages and platforms
 Scikit-learn is another popular free software machine learning library for the Python programming language, with plenty of built-in algorithms and can be easily implemented with user-friendly APIs.
