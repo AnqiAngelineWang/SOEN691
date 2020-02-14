@@ -21,9 +21,8 @@ Possible challenges within this dataset may be: 1) The financial indicators may 
 
 II. Materials and Methods 
 ---
-Dataset:
+**Dataset: 200+ Financial Indicators of US stocks (2014-2018)**[3]
 
-200+ Financial Indicators of US stocks (2014-2018)[3]
 This Data repo contains five datasets(2014-2018), each with 200+ financial indicators, that are commonly found in the 10-K filings releases yearly by publicly-traded companies. And there are approximately 4000 data samples in each dataset.
 
 The third-to-last column of these datasets is ‘sector’, which lists the sector of each stock. In the US stock market, each company is part of a sector that classifies it in a macro-area. Since all the sectors have been collected (Basic Materials, Communication Services, Consumer Cyclical, Consumer Defensive, Energy, Financial Services, Healthcare, Industrial, Real Estate, Technology, and Utilities), we could choose to perform per-sector analyses and comparisons. Because stokes of different sectors may be affected by different financial indicators. 
@@ -37,7 +36,7 @@ Data Preprocessing: The raw data will be preprocessed before feeding into models
 Model Tuning: We will conduct grid search to tune the hyperparameters of each model with k-fold validation.
 Results comparison: We will report and analyze the performance of different algorithms via several metrics including accuracy, recall, precision, and f1 score.
 
-Technology:
+**Technology:**
 
 For the libraries, we choose the MLlib and Scikit-learn.
 MLlib is Apache Spark's scalable machine learning library which is usable in different languages and platforms
