@@ -1,9 +1,9 @@
 
 from pyspark.sql import SparkSession
-from pyspark.ml.classification import DecisionTreeClassifier
+
 from pyspark.ml.feature import StringIndexer, VectorIndexer
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
-
+from pyspark.ml.classification import DecisionTreeClassifier
 from pyspark.ml.classification import LogisticRegression
 from pyspark.ml.classification import RandomForestClassifier
 from pyspark.ml.classification import GBTClassifier
@@ -61,6 +61,7 @@ MLP = MultilayerPerceptronClassifier(maxIter=100,blockSize=128, seed=seed)
 SVM=LinearSVC(regParam=0.1)
 nb=NaiveBayes(smoothing=1.0, modelType="binomial")
 
+#model training and testing functions
 def LR(trainingData,testData):
 
     Model = lr.fit(trainingData)
@@ -224,12 +225,17 @@ def MLPclf(trainingData, testData):
     return evaluate(label, predict)
 
 
-
-
+print('LogisticRegression:')
 print(LR(trainingData,testData))
+print('NaiveBayes:')
 print(NB(trainingData,testData))
+print('SVM:')
 print(SVM(trainingData,testData))
+print('DecisionTreeClassifier:')
 print(DTclf(trainingData,testData))
+print('RandomForestClassifier')
 print(RFclf(trainingData,testData))
+print('GBTClassifier')
 print(GBDTclf(trainingData,testData))
+print('MultilayerPerceptronClassifier:')
 print(MLPclf(trainingData,testData))
