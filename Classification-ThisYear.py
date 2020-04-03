@@ -27,7 +27,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn import metrics
 from sklearn.metrics import classification_report
 from sklearn.preprocessing import Normalizer
-from sklearn.preprocessing import Imputer
+#from sklearn.preprocessing import Imputer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 
@@ -104,7 +104,8 @@ if len(categorical_cols)!=0:
 
 data=np.array(data)
 
-#If first column is ID, then manuly removed from the dataset
+
+#first column is ID
 X,y=data[:,1:-4], data[:, -1]
 
 
