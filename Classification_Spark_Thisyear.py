@@ -54,7 +54,7 @@ data=spark.read.csv(filepath,header='true',inferSchema='true',sep=',')
 #data=spark.read.csv(filepath,header='false',inferSchema='true',sep=',')
 #find null
 #data.rdd.map(lambda row:(row['id'],sum([c==None for c in row]))).collect()
-feature_number=len(data.columns)-1
+feature_number=len(data.columns)-5
 data=data.fillna(0)
 cols=data.columns[1:-4]
 data=data.rdd.map(lambda x:(Vectors.dense(x[1:-4]), x[-1])).toDF(["features", "label"])
