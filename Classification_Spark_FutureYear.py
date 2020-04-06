@@ -51,21 +51,24 @@ spark = init_spark()
 
 # Load data
 #filepath='Data/2018_Financial_Data_spark.csv'
-filepath='Data/2018_Financial_Data.csv'
+filepath1='Data/2014_Financial_Data.csv'
+filepath2='Data/2015_Financial_Data.csv'
 
-data=spark.read.csv(filepath,header='true',inferSchema='true',sep=',')
+train=spark.read.csv(filepath1,header='true',inferSchema='true',sep=',')
+test=spark.read.csv(filepath2,header='true',inferSchema='true',sep=',')
 #data=spark.read.csv(filepath,header='false',inferSchema='true',sep=',')
 #find null
-#data.rdd.map(lambda row:(row['id'],sum([c==None for c in row]))).collect()
-feature_number=len(data.columns)-5
-data=data.fillna(0)
-cols=data.columns[1:-4]
-data=data.rdd.map(lambda x:(Vectors.dense(x[1:-4]), x[-1])).toDF(["features", "label"])
-#data=data.rdd.map(lambda x:(Vectors.dense(x[1:-1]), x[0])).toDF(["features", "label"])
+
+feature_number=len(train.columns)-5
+
+trainingData=train.fillna(0)
+trainingData=trainingData.rdd.map(lambda x:(Vectors.dense(x[1:-4]), x[-1])).toDF(["features", "label"])
+
+testData=test.fillna(0)
+testData=testData.rdd.map(lambda x:(Vectors.dense(x[1:-4]), x[-1])).toDF(["features", "label"])
 
 
-
-(trainingData, testData) = data.randomSplit([0.8, 0.2],seed=seed)
+#(trainingData, testData) = data.randomSplit([0.8, 0.2],seed=seed)
 
 
 scaler = Scaler(inputCol="features", outputCol="scaledFeatures")
