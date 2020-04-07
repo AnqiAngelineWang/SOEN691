@@ -12,7 +12,7 @@ from pyspark.ml.classification import LinearSVC
 from pyspark.mllib.classification import SVMModel
 from pyspark.mllib.classification import SVMWithSGD
 from pyspark.ml.classification import NaiveBayes
-
+from pyspark.sql.functions import col, explode, array, lit
 from pyspark.ml import Pipeline
 import pyspark.ml.evaluation as ev
 from pyspark.mllib.evaluation import BinaryClassificationMetrics
@@ -80,7 +80,7 @@ lr = LogisticRegression(featuresCol='scaledFeatures',maxIter=100, regParam=0.3, 
 dt = DecisionTreeClassifier(featuresCol='scaledFeatures',seed=seed)
 rf=RandomForestClassifier(featuresCol='scaledFeatures',seed=seed)
 GBDT=GBTClassifier(featuresCol='scaledFeatures',seed=seed)
-layers = [feature_number,10,2]
+layers = [feature_number,10,5,2]
 mlp = MultilayerPerceptronClassifier(featuresCol='scaledFeatures',layers=layers, seed=seed)
 svm=LinearSVC(featuresCol='scaledFeatures',regParam=0.1)
 nb=NaiveBayes(featuresCol='scaledFeatures',smoothing=1.0)
