@@ -1,8 +1,9 @@
 import numpy as np
 import sklearn
 import pandas as pd
+import numpy as np
+import pandas as pd
 import os
-
 from numpy import random
 from sklearn import preprocessing
 from sklearn import tree
@@ -51,19 +52,21 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from imblearn.over_sampling import RandomOverSampler
-
 from numpy.random import seed
 seed(1)
 
 seed=1
 
-filename='Data/2018_Financial_Data.csv'
+filename='Data/2017_Financial_Data.csv'
+filename2='Data/2018_Financial_Data.csv'
 print(filename)
+print(filename2)
 
 data=pd.read_csv(filename, header=0)
+data2=pd.read_csv(filename2, header=0)
 
 data = pd.DataFrame(data)
-
+data2 = pd.DataFrame(data2)
 print(data.iloc[:, -1].unique().size)
 
 if data.iloc[:, -1].unique().size==2:
@@ -87,6 +90,7 @@ else:
 
 
 data.fillna(0, inplace=True)
+data2.fillna(0, inplace=True)
 '''
 # Categorical boolean mask
 categorical_feature_mask = data.dtypes==object
@@ -104,13 +108,20 @@ if len(categorical_cols)!=0:
 
 
 data=np.array(data)
+data2=np.array(data2)
+#If first column is ID, then manuly removed from the dataset
+X_train,y_train=data[:,1:-4], data[:, -1]
+X_test,y_test=data2[:,1:-4], data2[:, -1]
 
 
-#first column is ID
-X,y=data[:,1:-4], data[:, -1]
+#X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=0.2, random_state=seed)
+y_train=y_train.astype(np.int32)
+ros = RandomOverSampler(random_state=0)
 
 
-X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=0.2, random_state=seed)
+X_train, y_train = ros.fit_resample(X_train, y_train)
+
+
 
 scaler = preprocessing.StandardScaler().fit(X_train)
 X_train2 = scaler.transform(X_train)
@@ -195,7 +206,7 @@ def RandomForest(X_train,y_train,X_test,y_test):
     gridcv = sklearn.model_selection.GridSearchCV(clf, param_grid, verbose=1, cv=3)
     gridcv.fit(X_train, y_train)
 
-    #gridcv = gridcv.fit(X_train,y_train)
+    gridcv = gridcv.fit(X_train,y_train)
     y_pred = gridcv.best_estimator_.predict(X_test)
     y_scores = gridcv.best_estimator_.predict_proba(X_test)[:,1]
     print("best parameters:", gridcv.best_params_)
@@ -320,7 +331,6 @@ print(a8)
 print("DT training")
 a10=CART(traindata,trainlabel,testdata,testlabel)
 print(a10)
-
 res = [a1, a2, a4, a5, a6, a7, a8, a10]
 
 # str(res)

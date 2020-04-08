@@ -27,7 +27,7 @@ import pyspark.ml.tuning as tune
 from pyspark.ml.feature import VectorAssembler, StringIndexer
 from pyspark.ml.feature import MinMaxScaler as Scaler
 import pdb
-
+import time
 
 #predefined functions
 def evaluate(y_test, y_pred):
@@ -78,18 +78,22 @@ testData = scalerModel.transform(testData)
 #model init
 lr = LogisticRegression(featuresCol='scaledFeatures',maxIter=100, regParam=0.3, elasticNetParam=0.8,tol=0.0001, family="binomial")
 dt = DecisionTreeClassifier(featuresCol='scaledFeatures',seed=seed)
-rf=RandomForestClassifier(featuresCol='scaledFeatures',seed=seed)
+rf=RandomForestClassifier(featuresCol='scaledFeatures',seed=seed,numTrees=20)
 GBDT=GBTClassifier(featuresCol='scaledFeatures',seed=seed)
 layers = [feature_number,10,5,2]
 mlp = MultilayerPerceptronClassifier(featuresCol='scaledFeatures',layers=layers, seed=seed)
 svm=LinearSVC(featuresCol='scaledFeatures',regParam=0.1)
 nb=NaiveBayes(featuresCol='scaledFeatures',smoothing=1.0)
 
-
+times=[]
 #model training and testing functions
 def LR(trainingData,testData):
 
+    start = time.time()
     Model = lr.fit(trainingData)
+    end = time.time()
+    times.append(end - start)
+
     results = Model.transform(testData)
 
     label=results.select("label").toPandas().values
@@ -100,8 +104,10 @@ def LR(trainingData,testData):
     return evaluate(label,predict)
 
 def SVM(trainingData,testData):
-
+    start = time.time()
     Model = svm.fit(trainingData)
+    end = time.time()
+    times.append(end - start)
     results = Model.transform(testData)
 
     label=results.select("label").toPandas().values
@@ -112,8 +118,10 @@ def SVM(trainingData,testData):
     return evaluate(label,predict)
 
 def NB(trainingData,testData):
-
+    start = time.time()
     Model = nb.fit(trainingData)
+    end = time.time()
+    times.append(end - start)
     results = Model.transform(testData)
 
     label=results.select("label").toPandas().values
@@ -125,26 +133,15 @@ def NB(trainingData,testData):
 
 def DTclf(trainingData,testData):
 
-    grid = tune.ParamGridBuilder()\
-        .addGrid(dt.maxDepth, [1, 10, 20, 30])\
-        .build()
 
-    evaluator = ev.BinaryClassificationEvaluator(
-        rawPredictionCol='probability',
-        labelCol='label'
-    )
-
-    # 3-fold validation
-    cv = tune.CrossValidator(
-        estimator=dt,
-        estimatorParamMaps=grid,
-        evaluator=evaluator,
-        numFolds=3
-    )
 
 
     #pipelineDtCV = Pipeline(stages=[cv])
-    cvModel = cv.fit(trainingData)
+    start = time.time()
+    cvModel = dt.fit(trainingData)
+    end = time.time()
+    times.append(end - start)
+
     results = cvModel.transform(testData)
 
     label=results.select("label").toPandas().values
@@ -156,27 +153,11 @@ def DTclf(trainingData,testData):
 
 def RFclf(trainingData,testData):
 
-    grid = tune.ParamGridBuilder()\
-        .addGrid(rf.maxDepth, [1, 10, 20, 30]) \
-        .addGrid(rf.numTrees, [1, 10, 20, 30,40,50]) \
-        .build()
 
-    evaluator = ev.BinaryClassificationEvaluator(
-        rawPredictionCol='probability',
-        labelCol='label'
-    )
-
-    # 3-fold validation
-    cv = tune.CrossValidator(
-        estimator=rf,
-        estimatorParamMaps=grid,
-        evaluator=evaluator,
-        numFolds=3
-    )
-
-
-    #pipelineDtCV = Pipeline(stages=[cv])
-    cvModel = cv.fit(trainingData)
+    start = time.time()
+    cvModel = rf.fit(trainingData)
+    end = time.time()
+    times.append(end - start)
     results = cvModel.transform(testData)
 
     label=results.select("label").toPandas().values
@@ -189,26 +170,11 @@ def RFclf(trainingData,testData):
 def GBDTclf(trainingData, testData):
 
 
-    max_depth=[1,5,10]
-    grid = tune.ParamGridBuilder() \
-        .addGrid(GBDT.maxDepth, max_depth) \
-        .build()
 
-    evaluator = ev.BinaryClassificationEvaluator(
-        rawPredictionCol='probability',
-        labelCol='label'
-    )
-
-    # 3-fold validation
-    cv = tune.CrossValidator(
-        estimator=GBDT,
-        estimatorParamMaps=grid,
-        evaluator=evaluator,
-        numFolds=3
-    )
-
-    # pipelineDtCV = Pipeline(stages=[cv])
-    cvModel = cv.fit(trainingData)
+    start = time.time()
+    cvModel = GBDT.fit(trainingData)
+    end = time.time()
+    times.append(end - start)
     results = cvModel.transform(testData)
 
     label = results.select("label").toPandas().values
@@ -223,8 +189,10 @@ def MLPclf(trainingData, testData):
 
 
     mlp=MultilayerPerceptronClassifier().setFeaturesCol("features").setLabelCol("label").setLayers(layers).setSolver("gd").setStepSize(0.3) .setMaxIter(1000)
-
+    start = time.time()
     mlpModel = mlp.fit(trainingData)
+    end = time.time()
+    times.append(end - start)
     results = mlpModel.transform(testData)
 
     label = results.select("label").toPandas().values
@@ -247,6 +215,9 @@ print('RandomForestClassifier')
 print(RFclf(trainingData,testData))
 print('GBTClassifier')
 print(GBDTclf(trainingData,testData))
-
 print('MultilayerPerceptronClassifier:')
 print(MLPclf(trainingData,testData))
+
+print("Running Time:")
+print("LR,NB,SVM,DT,RF,GBDT,MLP")
+print(times)

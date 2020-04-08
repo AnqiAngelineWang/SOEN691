@@ -57,7 +57,7 @@ seed(1)
 
 seed=1
 
-filename='Data/2018_Financial_Data.csv'
+filename='Data/2017_Financial_Data.csv'
 print(filename)
 
 data=pd.read_csv(filename, header=0)
@@ -109,8 +109,21 @@ data=np.array(data)
 #first column is ID
 X,y=data[:,1:-4], data[:, -1]
 
+from sklearn.datasets import make_classification
+X2, y2= make_classification(n_samples=5000, n_features=2, n_informative=2,
+                        n_redundant=0, n_repeated=0, n_classes=3,
+                         n_clusters_per_class=1,
+                         weights=[0.01, 0.05, 0.94],
+                          class_sep=0.8, random_state=0)
 
 X_train, X_test, y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=0.2, random_state=seed)
+y_train=y_train.astype(np.int32)
+ros = RandomOverSampler(random_state=0)
+
+
+X_train, y_train = ros.fit_resample(X_train, y_train)
+
+
 
 scaler = preprocessing.StandardScaler().fit(X_train)
 X_train2 = scaler.transform(X_train)

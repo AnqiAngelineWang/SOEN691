@@ -43,14 +43,8 @@ from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 
-from sklearn.pipeline import Pipeline
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.pipeline import FeatureUnion
+import time
 
-from sklearn.model_selection import KFold
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
-from imblearn.over_sampling import RandomOverSampler
 
 from numpy.random import seed
 seed(1)
@@ -129,29 +123,29 @@ trainlabel=trainlabel.astype(int)
 testdata=testdata.astype(float)
 testlabel = testlabel.astype(int)
 
+times=[]
+
 def MLP(X_train,y_train,X_test,y_test):
     clf = MLPClassifier(solver='lbfgs', alpha=1e-5,hidden_layer_sizes=(10, 5), random_state=seed)
-    l=X_train[0].size
-    lr = np.logspace(-5,-1, 5)
-    #print(lr)
-    #print(X_train[0].size)
-    hz=[(10, 5),(10,5,3)]
-    param_grid = {'alpha': lr,'hidden_layer_sizes':hz}
 
-    gridcv = sklearn.model_selection.GridSearchCV(clf, param_grid, verbose=1, cv=3)
-    gridcv.fit(X_train, y_train)
+    start = time.time()
+    clf = clf.fit(X_train,y_train)
+    end = time.time()
+    times.append(end - start)
 
-    gridcv = gridcv.fit(X_train,y_train)
-    y_pred = gridcv.best_estimator_.predict(X_test)
-    y_scores = gridcv.best_estimator_.predict_proba(X_test)[:,1]
+    y_pred = clf.predict(X_test)
+    y_scores = clf.predict_proba(X_test)[:,1]
 
-    print("best parameters:", gridcv.best_params_)
+    #print("best parameters:", gridcv.best_params_)
     np.savetxt('res/predictedMLP.txt', y_pred, fmt='%01d')
     return evaluate(y_test,y_pred,y_scores)
 
 def LogisticRegression(X_train,y_train,X_test,y_test):
     clf = sklearn.linear_model.LogisticRegression(random_state=seed, solver='lbfgs')
-    clf = clf.fit(X_train,y_train)
+    start = time.time()
+    clf = clf.fit(X_train, y_train)
+    end = time.time()
+    times.append(end - start)
     y_pred = clf.predict(X_test)
     y_scores = clf.predict_proba(X_test)[:,1]
     np.savetxt('res/predictedLR.txt', y_pred, fmt='%01d')
@@ -163,19 +157,18 @@ def CART(X_train,y_train,X_test,y_test):
     #clf = tree.DecisionTreeClassifier(max_depth=5)
     #clf = tree.DecisionTreeClassifier(criterion='entropy',max_depth=5,min_samples_leaf=5)
 
-    clf = tree.DecisionTreeClassifier(random_state=seed)
+    clf = tree.DecisionTreeClassifier(max_depth=5,random_state=seed)
 
-    md=np.arange(1,50,10)
-    param_grid = {'max_depth': md}
-
-    gridcv = sklearn.model_selection.GridSearchCV(clf, param_grid, verbose=1, cv=3)
-    gridcv.fit(X_train, y_train)
+    start = time.time()
+    clf = clf.fit(X_train, y_train)
+    end = time.time()
+    times.append(end - start)
 
     #clf = clf.fit(X_train,y_train)
-    y_pred = gridcv.best_estimator_.predict(X_test)
-    y_scores = gridcv.best_estimator_.predict_proba(X_test)[:,1]
+    y_pred = clf.predict(X_test)
+    y_scores = clf.predict_proba(X_test)[:,1]
     np.savetxt('res/predictedDTbase.txt', y_pred, fmt='%01d')
-    print("best parameters:", gridcv.best_params_)
+    #print("best parameters:", gridcv.best_params_)
 #    tree.plot_tree(clf.fit(X_train,y_train))
     #tree.export_graphviz()
     #dot_data = tree.export_graphviz(clf, out_file=None)
@@ -186,184 +179,116 @@ def CART(X_train,y_train,X_test,y_test):
 #randomforest
 
 def RandomForest(X_train,y_train,X_test,y_test):
-    clf = ensemble.RandomForestClassifier(max_features=None,random_state=seed)
+    clf = ensemble.RandomForestClassifier(max_features=None,max_depth=5,n_estimators=20,random_state=seed)
 
-    md = np.arange(1, 50, 10)
-    ne = np.arange(1, 50, 10)
-    param_grid = {'max_depth': md,'n_estimators':ne}
-
-    gridcv = sklearn.model_selection.GridSearchCV(clf, param_grid, verbose=1, cv=3)
-    gridcv.fit(X_train, y_train)
+    #clf = sklearn.model_selection.GridSearchCV(clf, param_grid, verbose=1, cv=3)
+    start = time.time()
+    clf = clf.fit(X_train, y_train)
+    end = time.time()
+    times.append(end - start)
 
     #gridcv = gridcv.fit(X_train,y_train)
-    y_pred = gridcv.best_estimator_.predict(X_test)
-    y_scores = gridcv.best_estimator_.predict_proba(X_test)[:,1]
-    print("best parameters:", gridcv.best_params_)
+    y_pred = clf.predict(X_test)
+    y_scores = clf.predict_proba(X_test)[:,1]
+    #print("best parameters:", gridcv.best_params_)
     np.savetxt('res/predictedRFbase.txt', y_pred, fmt='%01d')
     return evaluate(y_test,y_pred,y_scores)
 
 
 
-def svm_one_class(X_train,y_train,X_test,y_test):
-    _train = preprocessing.normalize(X_train, norm='l2')
-    _test = preprocessing.normalize(X_test, norm='l2')
-    lin_clf = svm.LinearSVC()
-    lin_clf.fit(_train, y_train)
-    LinearSVC(C=1000, class_weight=None, fit_intercept=True,
-     intercept_scaling=1, loss='squared_hinge', max_iter=1000,
-     multi_class='ovr', penalty='l2', random_state=seed, tol=0.0001,
-     verbose=0)
-    y_pred = lin_clf.predict(_test)
-    y_scores = lin_clf.decision_function(_test)
-    np.savetxt('res/predictedSVMbase.txt', y_pred, fmt='%01d')
-    return evaluate(y_test,y_pred,y_scores)
-
-
 def SVM(X_train,y_train,X_test,y_test):
 
-    svm = sklearn.svm.SVC(kernel='rbf')
-    C_grid = np.logspace(0, 3, 4)
-    gamma_grid = np.logspace(-2, 1, 4)
-    param_grid = {'C': C_grid, 'gamma': gamma_grid}
-    gridcv = sklearn.model_selection.GridSearchCV(svm, param_grid, verbose=1, cv=3)
-    gridcv.fit(X_train, y_train)
+    clf = sklearn.svm.SVC(kernel='rbf')
 
-    y_pred = gridcv.best_estimator_.predict(X_test)
-    y_scores = gridcv.best_estimator_.decision_function(X_test)
-    print("best parameters:", gridcv.best_params_)
+    start = time.time()
+    clf = clf.fit(X_train, y_train)
+    end = time.time()
+    times.append(end - start)
+
+    y_pred = clf.predict(X_test)
+    y_scores = clf.decision_function(X_test)
+    #print("best parameters:", gridcv.best_params_)
     np.savetxt('res/predictedSVMNormbase.txt', y_pred, fmt='%01d')
     return evaluate(y_test,y_pred,y_scores)
 
 
 def Gaussian_NB(X_train,y_train,X_test,y_test):
-    gnb = GaussianNB()
-    y_pred = gnb.fit(X_train, y_train).predict(X_test)
-    y_scores  = gnb.fit(X_train, y_train).predict_proba(X_test)[:,1]
+    clf = GaussianNB()
+
+    start = time.time()
+    clf = clf.fit(X_train, y_train)
+    end = time.time()
+    times.append(end - start)
+
+    y_pred = clf.predict(X_test)
+    y_scores  = clf.fit(X_train, y_train).predict_proba(X_test)[:,1]
 
     np.savetxt('res/predictedNBbase.txt', y_pred, fmt='%01d')
     return evaluate(y_test,y_pred,y_scores)
 
 def kNN(X_train,y_train,X_test,y_test):
     clf = KNeighborsClassifier()
-    #n_neighbors=5
-    nn=np.arange(1,100,10)
-    param_grid = {'n_neighbors': nn}
 
-    gridcv = sklearn.model_selection.GridSearchCV(clf, param_grid, verbose=1, cv=3)
-    gridcv.fit(X_train, y_train)
-    y_pred = gridcv.best_estimator_.predict(X_test)
-    y_scores = gridcv.best_estimator_.predict_proba(X_test)[:,1]
-    print("best parameters:", gridcv.best_params_)
+    start = time.time()
+    clf = clf.fit(X_train, y_train)
+    end = time.time()
+    times.append(end - start)
+    y_pred = clf.predict(X_test)
+    y_scores = clf.predict_proba(X_test)[:,1]
+    #print("best parameters:", gridcv.best_params_)
     np.savetxt('res/predictedKNNbase.txt', y_pred, fmt='%01d')
 
     return evaluate(y_test,y_pred,y_scores)
 
-def AdaBoost(X_train,y_train,X_test,y_test):
-   # dt_stump = DecisionTreeClassifier(max_depth=5, min_samples_leaf=1)
-    dt_stump = DecisionTreeClassifier()
-    dt_stump.fit(X_train, y_train)
-    dt_stump_err = 1.0 - dt_stump.score(X_test, y_test)
-
-    clf = ensemble.AdaBoostClassifier(base_estimator=dt_stump,learning_rate=0.1,algorithm='SAMME')
-    clf=clf.fit(X_train, y_train)
-
-
-    y_pred = clf.predict(X_test)
-    y_scores = clf.predict_proba(X_test)[:,1]
-    print("best parameters:", gridcv.best_params_)
-    np.savetxt('res/predictedABbase.txt', y_pred, fmt='%01d')
-
-    return evaluate(y_test,y_pred,y_scores)
 
 def GBDT(X_train,y_train,X_test,y_test):
-    n_estimators = [10,50,100]
-    learning_rate = [0.01,0.1,1]
-    max_depth=[1,5,10]
-    param_grid = {'n_estimators': n_estimators, 'learning_rate': learning_rate,'max_depth':max_depth}
 
     clf = ensemble.GradientBoostingClassifier(n_estimators=100, learning_rate=0.1,max_depth=1, random_state=seed)
     #clf=clf.fit(X_train, y_train)
 
-    gridcv = sklearn.model_selection.GridSearchCV(clf, param_grid, verbose=1, cv=3)
-    gridcv.fit(X_train, y_train)
-    y_pred = gridcv.best_estimator_.predict(X_test)
-    y_scores = gridcv.best_estimator_.predict_proba(X_test)[:,1]
-    print("best parameters:", gridcv.best_params_)
+    start = time.time()
+    clf = clf.fit(X_train, y_train)
+    end = time.time()
+    times.append(end - start)
+    y_pred = clf.predict(X_test)
+    y_scores = clf.predict_proba(X_test)[:,1]
+    #print("best parameters:", gridcv.best_params_)
     np.savetxt('res/predictedBGDTbase.txt', y_pred, fmt='%01d')
     return evaluate(y_test,y_pred,y_scores)
 
 
 #SVM-rbf
 #knn odd num
-print("GBDT training")
-a1=GBDT(traindata,trainlabel,testdata,testlabel)
-print(a1)
+print("LR training")
+a5=LogisticRegression(traindata,trainlabel,testdata,testlabel)
+print(a5)
 print("NB training")
 a2=Gaussian_NB(traindata,trainlabel,testdata,testlabel)
 print(a2)
 #a3=xgboost(traindata,trainlabel,testdata,testlabel)
-print("kNN training")
-a4=kNN(traindata,trainlabel,testdata,testlabel)
-print(a4)
-print("LR training")
-a5=LogisticRegression(traindata,trainlabel,testdata,testlabel)
-print(a5)
 print("SVM training")
 a6=SVM(traindata,trainlabel,testdata,testlabel)
 print(a6)
-print("MLP training")
-a7=MLP(traindata,trainlabel,testdata,testlabel)
-print(a7)
-print("RF training")
-a8=RandomForest(traindata,trainlabel,testdata,testlabel)
-print(a8)
 print("DT training")
 a10=CART(traindata,trainlabel,testdata,testlabel)
 print(a10)
-
-res = [a1, a2, a4, a5, a6, a7, a8, a10]
-
-# str(res)
-#print(res)
-#np.savetxt('res/' + 'ClassificationData6.Steel Plates FaultsFaults' + '.txt', res, fmt='%.4f')
-
-#a12=svm_one_class(traindata,trainlabel,testdata,testlabel)
-print("GBDT")
-print("[accuracy,precision,recall,f1,auc]")
-print(a1)
-
-print("Naive_bayes")
-print("[accuracy,precision,recall,f1,auc]")
-print(a2)
-
-#print("xgboost")
-#print("[accuracy,precision,recall,f1,auc]")
-#print(a3)
-
-print("Knn")
-print("[accuracy,precision,recall,f1,auc]")
-print(a4)
-
-print("LogisticRegression")
-print("[accuracy,precision,recall,f1,auc]")
-print(a5)
-
-print("SVM")
-print("[accuracy,precision,recall,f1,auc]")
-print(a6)
-
-
-print("MLP")
-print("[accuracy,precision,recall,f1,auc]")
-print(a7)
-
-print("RandomForest")
-print("[accuracy,precision,recall,f1,auc]")
+print("RF training")
+a8=RandomForest(traindata,trainlabel,testdata,testlabel)
 print(a8)
+print("GBDT training")
+a1=GBDT(traindata,trainlabel,testdata,testlabel)
+print(a1)
+print("MLP training")
+a7=MLP(traindata,trainlabel,testdata,testlabel)
+print(a7)
+res = [a1, a2, a5, a6, a7, a8, a10]
 
-print("CART")
-print("[accuracy,precision,recall,f1,auc]")
-print(a10)
+
+
+print("Running time:")
+print("LR,NB,SVM,DT,RF,GBDT,MLP")
+print(times)
+
 
 
 def tsneShow(X,y,Xt,yt):
