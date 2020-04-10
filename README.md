@@ -3,7 +3,7 @@ Proposal
 ===
 Abstract
 ---
-The US Stock market is a hot-debated topic in people's normal lives. Many companies are facing fierce competition and costly in order to be outstanding in the market. This project is going to analyze US Stocks between 2014 and 2018 from CSV datasets. It will reveal the financial indicators for the stock market trends. This project makes use of machine learning data analytic techniques to reveal the trend of datasets. It contains computational methods implementing by python language. Through this project, four group members aim to generate predictive US stock developments, and achieve a more visible, accessible stock financial services to the general public.
+The US Stock market is a hot-debated topic in people's normal lives. Many companies are facing fierce competition and costly in order to be outstanding in the market. This project is going to analyze US Stocks between 2014 and 2018 from CSV datasets. It will reveal the financial indicators for the stock market trends. This project makes use of machine learning data analytic techniques to predict a stock is worth buying or not. It contains computational methods implementing by python language. Through this project, four group members aim to generate predictive US stock developments, and achieve a more visible, accessible stock financial services to the general public. We also compared the impact of using spark and sklearn on the prediction accuracy of the model, how to improve the accuracy through the correct preprocessing method, and the difference in the running time between spark and sklearn.
 
 I. Introduction
 ---
@@ -79,6 +79,7 @@ III.Results
 
 For this case , we first split the data within one year to training and testing set to validate the data quality. The split rate is 4:1. We report the F1 score considering the data imbalance. 
 Because data of 2014 and 2017 is of poor quality, the average precision we exclude these two years.
+From the two tables above we can see exclude naive bayes the F1 score of each model is not 
 
 * Comparison of sklearn and spark(different year)
 
@@ -138,6 +139,10 @@ Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015
 | 2016 |   68.12%   |    63.85%   |    -4.27%    |
 | 2017 |   20.52%   |    38.54%   |    18.02%    |
 | 2018 |   71.09%   |    68.03%   |    -3.06%    | 
+
+**Result-Case 3**
+* Runtime comparison between Spark and Sklearn
+
 
 IV.Discussion
 ---
