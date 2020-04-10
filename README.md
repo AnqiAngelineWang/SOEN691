@@ -79,7 +79,7 @@ III.Results
 
 For this case , we first split the data within one year to training and testing set to validate the data quality. The split rate is 4:1. We report the F1 score considering the data imbalance. 
 Because data of 2014 and 2017 is of poor quality, the average precision we exclude these two years.
-From the two tables above we can see exclude naive bayes the F1 score of each model is not 
+From the two tables above we can see exclude naive bayes the F1 score of each model is no much difference, and the performance of each model for this data set is similar.
 
 * Comparison of sklearn and spark(different year)
 
@@ -105,7 +105,8 @@ From the two tables above we can see exclude naive bayes the F1 score of each mo
 | MLP                    |    19.61%   |    80.25%   |    43.15%   |    0.00%    |
 
 For this case , we use the data of one year to train and the data of next year to test.
-Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015-2016.
+Because data of 2014 and 2017 is of poor qualit, use data of these two years as training data or testing data is not a wise choice, we only see the results of 2015-2016.
+From two tabels above we also can conclude the difference between Spark and Sklearn is not much, the perfomance of each model also the same.
 
 **Result-Case 2**
 * positive and negative class of each year
