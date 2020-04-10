@@ -53,8 +53,8 @@ Naive Bayes.
 
 III.Results
 ---
-###Result-Case 1 
-####Comparison of sklearn and spark(same year)
+**Result-Case 1** 
+* Comparison of sklearn and spark(same year)
 | Scikit-learn  |  2014  |  2015  |  2016  |  2017  |  2018  |  Averaged exclude 2014 and 2017  |
 | :-----------: |:------:|:-----: |:------:|:------:|:------:| :-------------------------------:|
 | LR            | 49.53% | 80.44% | 79.63% | 11.41% | 81.82% |             80.63%               |
@@ -76,10 +76,10 @@ III.Results
 | GBDT          | 48.01% | 83.48% | 76.65% | 23.08% | 80.12% |             80.09%               |
 | MLP           | 33.40% | 83.26% | 80.10% | 0.00%  | 81.30% |             81.55%               |
 
-For this case , we use the data of one year to train and the data of next year to test.
-Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015-2016.
+For this case , we first split the data within one year to training and testing set to validate the data quality. The split rate is 4:1. We report the F1 score considering the data imbalance. 
+Because data of 2014 and 2017 is of poor quality, the average precision we exclude these two years.
 
-####Comparison of sklearn and spark(different year)
+* Comparison of sklearn and spark(different year)
 | Scikit-learn next year |  2014-2015  |  2015-2016  |  2016-2017  |  2017-2018  |
 | :---------------------:|:-----------:|:----------: |:-----------:|:-----------:|
 | LR                     |    41.49%   |    78.84%   |    43.48%   |    9.01%    |
@@ -104,8 +104,9 @@ Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015
 For this case , we use the data of one year to train and the data of next year to test.
 Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015-2016.
 
-###Result-Case 2
-####Comparison of sklearn and spark(different year)
+**Result-Case 2**
+* positive and negative class of each year
+
 | Year |  Positive |  Negative |  Positive Percentange |
 | :---:|:---------:|:---------:|:---------------------:|
 | 2014 |    1634   |    3808   |         30.03%        | 
@@ -113,8 +114,9 @@ Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015
 | 2016 |    3218   |    4797   |         40.15%        |
 | 2017 |    1370   |    4960   |         21.64%        |
 | 2018 |    3046   |    4392   |         40.95%        | 
-
-####Oversampling Results:
+* Comparison of sklearn and spark(different year)
+ * Oversampling Results(same year):
+ 
 | Scikit-learn  |  2014  |  2015  |  2016  |  2017  |  2018  |
 | :-----------: |:------:|:-----: |:------:|:------:|:------:|
 | LR            | 55.60% | 70.86% | 68.71% | 39.73% | 71.82% |
@@ -125,8 +127,9 @@ Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015
 | GBDT          | 57.57% | 81.04% | 78.55% | 36.73% | 81.77% |
 | MLP           | 53.41% | 76.34% | 71.96% | 38.72% | 74.58% |
 
-####Oversampling Results:
-| Year |  Imbalance |  Oversample |  Improvement |
+* comparison of results of imbalanced data and oversampled data:
+
+| Year |  Imbalanced |  Oversample |  Improvement |
 | :---:|:---------: |:-----------:|:------------:|
 | 2014 |   47.37%   |    56.14%   |    8.77%     | 
 | 2015 |   81.12%   |    77.43%   |    -3.68%    |
@@ -142,6 +145,7 @@ This also follows the assumption that social influences have not been considered
 For example, it could not forecast the stock trend due to COVID-19
 
 Ref:
+---
 
 [1] Patel, Jigar, et al. "Predicting stock and stock price index movement using trend deterministic data preparation and machine learning techniques." Expert systems with applications 42.1 (2015): 259-268.
 
