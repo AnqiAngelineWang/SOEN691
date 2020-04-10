@@ -51,7 +51,8 @@ Multilayer perceptron classifier,
 Linear Support Vector Machine,
 Naive Bayes.
 
-##Results
+III.Results
+---
 ###Result-Case 1 
 ####Comparison of sklearn and spark(same year)
 | Scikit-learn  |  2014  |  2015  |  2016  |  2017  |  2018  |  Averaged exclude 2014 and 2017  |
@@ -132,6 +133,13 @@ Because data of 2014 and 2017 is of poor qualit, we only see the results of 2015
 | 2016 |   68.12%   |    63.85%   |    -4.27%    |
 | 2017 |   20.52%   |    38.54%   |    18.02%    |
 | 2018 |   71.09%   |    68.03%   |    -3.06%    | 
+
+IV.Discussion
+---
+Predict a stock is worth buying or not is hard, the correctness of model  very dependent the training data. 
+High quality or satisfied data sets are efficient to forecast the future stoke trends.  For example, the results in year 2015 and 2016.
+This also follows the assumption that social influences have not been considered. 
+For example, it could not forecast the stock trend due to COVID-19
 
 Ref:
 
