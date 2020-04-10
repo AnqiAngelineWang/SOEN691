@@ -55,6 +55,7 @@ III.Results
 ---
 **Result-Case 1** 
 * Comparison of sklearn and spark(same year)
+
 | Scikit-learn  |  2014  |  2015  |  2016  |  2017  |  2018  |  Averaged exclude 2014 and 2017  |
 | :-----------: |:------:|:-----: |:------:|:------:|:------:| :-------------------------------:|
 | LR            | 49.53% | 80.44% | 79.63% | 11.41% | 81.82% |             80.63%               |
@@ -80,6 +81,7 @@ For this case , we first split the data within one year to training and testing 
 Because data of 2014 and 2017 is of poor quality, the average precision we exclude these two years.
 
 * Comparison of sklearn and spark(different year)
+
 | Scikit-learn next year |  2014-2015  |  2015-2016  |  2016-2017  |  2017-2018  |
 | :---------------------:|:-----------:|:----------: |:-----------:|:-----------:|
 | LR                     |    41.49%   |    78.84%   |    43.48%   |    9.01%    |
