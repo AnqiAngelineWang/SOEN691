@@ -183,6 +183,8 @@ Ref:
 
 [3] https://www.kaggle.com/cnic92/200-financial-indicators-of-us-stocks-20142018/data
 
+[4] Sampathkumar, Rajesh. “How Is Scikit-Learn Compared with Apache Spark's MLlib?” Machine Learning, Quora, 17 Sept. 2016, www.quora.com/How-is-scikit-learn-compared-with-Apache-Sparks-MLlib.
+
 Appendix Material:
 ---
 To reproduce the results:
