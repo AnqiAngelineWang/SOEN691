@@ -156,6 +156,8 @@ From table above we know oversample makes the F1 score of models with imbalanced
 * Runtime comparison between Spark and Sklearn
 ![image](https://github.com/AnqiAngelineWang/SOEN691/blob/master/res/image.png)
 
+From the figure above, it is easy to obtain that Sklearn has a better running time performance than Spark. The running time test has proceeded onto the same personal laptop for comparison. Data sets for this project fit into the RAM. This result also reflected that Sklearn has better performance than Spark because Sklearn does in-memory processing[4]. Spark does not have the advantages of working with the datasets under this circumstance. It logistically works under a distributed system and better fits with larger datasets. This should be the reason to explain the test results.
+
 IV.Discussion
 ---
 In this project, we mainly conduct 3 cases to investigate the stock gain prediction and performance comparison between Scikit-learn and Spark MLlib. From the results of these experiments we draw the following conclusions:
