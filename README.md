@@ -1,5 +1,5 @@
 
-Report
+Project Report
 ===
 Abstract
 ---
@@ -164,7 +164,7 @@ In this project we mainly conduct 3 cases to investigate the stock gain predicti
 * Scikit-learn is faster than Spark regarding the training time on our dataset on personal computers.
 * The oversampling method has positive effect on highly imbalanced datasets(year 2014 and 2017).
 
-The limitation of our experiments is that, we only test the running performance on local machine. In the future work we will extend our experiments to deploy on distributed infrastructure. And other data anlysis techniques such as feature engineering and feature learning may also be explored to further improve the performance. 
+The limitation of our experiments is that, for case3 we only test the running performance on local machine. In the future work we will extend our experiments to deploy on distributed infrastructure. And other data anlysis techniques such as feature engineering and feature learning may also be explored to further improve the performance. 
 
 Predict a stock is worth buying or not is hard, the correctness of model  very dependent the training data. 
 High quality or satisfied data sets are efficient to forecast the future stoke trends.  For example, the results in year 2015 and 2016.
