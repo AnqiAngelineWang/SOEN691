@@ -159,11 +159,12 @@ From table above we know oversample makes the F1 score of models with imbalanced
 IV.Discussion
 ---
 In this project we mainly conduct 3 cases to investigate the stock gain prediction and performance comparison between Scikit-learn and Spark MLlib. From the results of these experiment we draw the following conclusion:
-* The prediction performance difference between scikit-learn and Spark is not significant on the selected dataset.
-* The oversampling method has positive effect on highly imbalanced datasets(year 2014 and 2017). 
+* It is possible to provide the stock gain prediction based on the finical data. Yet the in 2014 and 2017 the data is not able not be predicted. The reason may comes from the other factors that not included in the data. Thus the F1 score related to the two years are not high.
+* The prediction performance difference between scikit-learn and Spark is not significant on the selected dataset. 
 * Scikit-learn is faster than Spark regarding the training time on our dataset on personal computers.
+* The oversampling method has positive effect on highly imbalanced datasets(year 2014 and 2017).
 
-The limitation of our experiments is that, we only test the running performance on local machine. In the future work we will extend our experiments to deploy on distributed infrastructure. 
+The limitation of our experiments is that, we only test the running performance on local machine. In the future work we will extend our experiments to deploy on distributed infrastructure. And other data anlysis techniques such as feature engineering and feature learning may also be explored to further improve the performance. 
 
 Predict a stock is worth buying or not is hard, the correctness of model  very dependent the training data. 
 High quality or satisfied data sets are efficient to forecast the future stoke trends.  For example, the results in year 2015 and 2016.
