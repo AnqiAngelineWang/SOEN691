@@ -55,9 +55,9 @@ III.Experiments and Results
 ---
 
 To validate the proposed objective. We set up three cases of experiments as following:
-Case1: Compare the performance between scikit-learn and Spark on data within the same year and next year;
-Case2: Compare the performance with and without oversampling on scikit-learn; 
-Case3: Run the models on each dataset for 5 times and take the averaged running time to compare the running time between scikit-learn and Spark.
+* Case1: Compare the performance between scikit-learn and Spark on data within the same year and next year;
+* Case2: Compare the performance with and without oversampling on scikit-learn; 
+* Case3: Run the models on each dataset for 5 times and take the averaged running time to compare the running time between scikit-learn and Spark.
 
 **Result-Case 1** 
 * Comparison of sklearn and spark(same year)
@@ -159,10 +159,12 @@ From table above we know oversample makes the F1 score of models with imbalanced
 IV.Discussion
 ---
 In this project we mainly conduct 3 cases to investigate the stock gain prediction and performance comparison between Scikit-learn and Spark MLlib. From the results of these experiment we draw the following conclusion:
-The prediction performance difference between scikit-learn and Spark is not significant on the selected dataset.
-The oversampling method has positive effect on highly imbalanced datasets(year 2014 and 2017). 
-Scikit-learn is faster than Spark regarding the training time on our dataset on personal computers.
+* The prediction performance difference between scikit-learn and Spark is not significant on the selected dataset.
+* The oversampling method has positive effect on highly imbalanced datasets(year 2014 and 2017). 
+* Scikit-learn is faster than Spark regarding the training time on our dataset on personal computers.
+
 The limitation of our experiments is that, we only test the running performance on local machine. In the future work we will extend our experiments to deploy on distributed infrastructure. 
+
 Predict a stock is worth buying or not is hard, the correctness of model  very dependent the training data. 
 High quality or satisfied data sets are efficient to forecast the future stoke trends.  For example, the results in year 2015 and 2016.
 This also follows the assumption that social influences have not been considered. 
