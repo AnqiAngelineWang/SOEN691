@@ -118,8 +118,10 @@ From two tabels above we also can conclude the difference between Spark and Skle
 | 2016 |    3218   |    4797   |         40.15%        |
 | 2017 |    1370   |    4960   |         21.64%        |
 | 2018 |    3046   |    4392   |         40.95%        | 
-* Comparison of sklearn and spark(different year)
- * Oversampling Results(same year):
+From this table we can see the data of 2014 and 2017 is very imbalance , we choose to use oversample to deal with this problem.
+
+* Comparison of row data  and data after oversample(same year)
+  * Oversampled Results(same year):
  
 | Scikit-learn  |  2014  |  2015  |  2016  |  2017  |  2018  |
 | :-----------: |:------:|:-----: |:------:|:------:|:------:|
@@ -140,6 +142,7 @@ From two tabels above we also can conclude the difference between Spark and Skle
 | 2016 |   68.12%   |    63.85%   |    -4.27%    |
 | 2017 |   20.52%   |    38.54%   |    18.02%    |
 | 2018 |   71.09%   |    68.03%   |    -3.06%    | 
+From table above we know oversample makes the F1 score of models with imbalanced data increased, but for model with good data set it only shown the side effect.
 
 **Result-Case 3**
 * Runtime comparison between Spark and Sklearn
