@@ -23,7 +23,7 @@ II. Materials and Methods
 ---
 **Dataset: 200+ Financial Indicators of US stocks (2014-2018)**[3]
 
-This Data repo contains five datasets(2014-2018), each with 200+ financial indicators, that are commonly found in the 10-K filings releases yearly by publicly-traded companies. And there are approximately 4000 data samples in each dataset.
+This Data repo contains five datasets (2014-2018), each with 200+ financial indicators, that are commonly found in the 10-K filings releases yearly by publicly-traded companies. And there are approximately 4000 data samples in each dataset.
 
 The third-to-last column of these datasets is ‘sector’, which lists the sector of each stock. In the US stock market, each company is part of a sector that classifies it in a macro-area. Since all the sectors have been collected (Basic Materials, Communication Services, Consumer Cyclical, Consumer Defensive, Energy, Financial Services, Healthcare, Industrial, Real Estate, Technology, and Utilities), we could choose to perform per-sector analyses and comparisons. Because stokes of different sectors may be affected by different financial indicators. 
 
@@ -56,7 +56,7 @@ III.Experiments and Results
 To validate the proposed objective. We set up three cases of experiments as following:
 * Case1: Compare the performance between scikit-learn and Spark on data within the same year and next year;
 * Case2: Compare the performance with and without oversampling on scikit-learn; 
-* Case3: Run the models on each dataset for 5 times and take the averaged running time to compare the running time between scikit-learn and Spark.
+* Case3: Run the models on each dataset for 5 times for each year individually, and take the averaged running time to compare the execution time between scikit-learn and Spark.
 
 **Result-Case 1** 
 * Comparison of sklearn and spark(same year)
@@ -82,11 +82,11 @@ To validate the proposed objective. We set up three cases of experiments as foll
 | GBDT          | 48.01% | 83.48% | 76.65% | 23.08% | 80.12% |             80.09%               |
 | MLP           | 33.40% | 83.26% | 80.10% | 0.00%  | 81.30% |             81.55%               |
 
-For this case , we first split the data within one year to training and testing set to validate the data quality. The split rate is 4:1. We report the F1 score considering the data imbalance. 
+For this test case, we first split the data within one year to training and testing set to validate the data quality. The split rate is 4:1. We report the F1 score considering the data imbalance. 
 Because data of 2014 and 2017 is of poor quality, the average precision we exclude these two years.
-From the two tables above we can see exclude naive bayes the F1 score of each model is no much difference, and the performance of each model for this data set is similar.
+From the two tables above, we can see exclude naive bayes the F1 score of each model is no much difference, and the performance of each model for this data set is similar.
 
-* Comparison of sklearn and spark(different year)
+* Comparison of sklearn and spark (different year)
 
 | Scikit-learn next year |  2014-2015  |  2015-2016  |  2016-2017  |  2017-2018  |
 | :---------------------:|:-----------:|:----------: |:-----------:|:-----------:|
@@ -109,12 +109,12 @@ From the two tables above we can see exclude naive bayes the F1 score of each mo
 | GBDT                   |    32.44%   |    77.13%   |    42.58%   |    21.95%   |
 | MLP                    |    19.61%   |    80.25%   |    43.15%   |    0.00%    |
 
-For this case , we use the data of one year to train and the data of next year to test.
-Because data of 2014 and 2017 is of poor qualit, use data of these two years as training data or testing data is not a wise choice, we only see the results of 2015-2016.
-From two tabels above we also can conclude the difference between Spark and Sklearn is not much, the perfomance of each model also the same.
+For this test case, we use the data of one year to train and the data of next year to test.
+Because data of 2014 and 2017 is of poor quality, use data of these two years as training data or testing data is not a wise choice, we only see the results of 2015-2016.
+From two tables above, we also can conclude the difference between Spark and Sklearn is not much, the performance of each model also the same.
 
 **Result-Case 2**
-* positive and negative class of each year
+* Positive and negative class of each year
 
 | Year |  Positive |  Negative |  Positive Percentange |
 | :---:|:---------:|:---------:|:---------------------:|
@@ -124,10 +124,10 @@ From two tabels above we also can conclude the difference between Spark and Skle
 | 2017 |    1370   |    4960   |         21.64%        |
 | 2018 |    3046   |    4392   |         40.95%        | 
 
-From this table we can see the data of 2014 and 2017 is very imbalance , we choose to use oversample to deal with this problem.
+From this table we can see the data of 2014 and 2017 is very imbalanced, we choose to use oversample to deal with this problem.
 
-* Comparison of row data  and data after oversample(same year)
-  * Oversampled Results(same year):
+* Comparison of row data and data after oversample (same year)
+  * Oversampled Results (same year):
  
 | Scikit-learn  |  2014  |  2015  |  2016  |  2017  |  2018  |
 | :-----------: |:------:|:-----: |:------:|:------:|:------:|
@@ -139,7 +139,7 @@ From this table we can see the data of 2014 and 2017 is very imbalance , we choo
 | GBDT          | 57.57% | 81.04% | 78.55% | 36.73% | 81.77% |
 | MLP           | 53.41% | 76.34% | 71.96% | 38.72% | 74.58% |
 
-* comparison of results of imbalanced data and oversampled data:
+* Comparison of results of imbalanced data and oversampled data:
 
 | Year |  Imbalanced |  Oversample |  Improvement |
 | :---:|:---------: |:-----------:|:------------:|
@@ -149,28 +149,28 @@ From this table we can see the data of 2014 and 2017 is very imbalance , we choo
 | 2017 |   20.52%   |    38.54%   |    18.02%    |
 | 2018 |   71.09%   |    68.03%   |    -3.06%    | 
 
-From table above we know oversample makes the F1 score of models with imbalanced data increased, but for model with good data set it only shown the side effect.
+From table above, we know oversample makes the F1 score of models with imbalanced data increased, but for model with good data set it only shown the side effect.
 
 **Result-Case 3**
 * Runtime comparison between Spark and Sklearn
 ![image](https://github.com/AnqiAngelineWang/SOEN691/blob/master/res/image.png)
 
-From the figure above, it is easy to obtain that Sklearn has a better running time performance than Spark. The running time test has proceeded onto the same personal laptop for comparison. Data sets for this project fit into the RAM. This result also reflected that Sklearn has better performance than Spark because Sklearn does in-memory processing[4]. Spark does not have the advantages of working with the datasets under this circumstance. It logistically works under a distributed system and better fits with larger datasets. This should be the reason to explain the test results.
+From the figure above, it is easy to obtain that Sklearn has a better running time performance than Spark. The running time test has proceeded onto the same personal laptop for comparison. Data sets for this project fit into the RAM. This result also reflected that Sklearn has better performance than Spark because Sklearn does in-memory processing [4]. Spark does not have the advantages of working with the datasets under this circumstance. It logistically works under a distributed system and better fits with larger datasets. This should be the reason to explain the test results.
 
-IV.Discussion
+IV. Discussion
 ---
 In this project, we mainly conduct 3 cases to investigate the stock gain prediction and performance comparison between Scikit-learn and Spark MLlib. From the results of these experiments we draw the following conclusions:
-* It is possible to provide the stock gain prediction based on the finical data. Yet in 2014 and 2017 the data is not able not to be predicted. The reason may come from the other factors that not included in the data. Thus the F1 score related to the two years is not high. 
+* It is possible to provide the stock gain prediction based on the finical data. Yet in 2014 and 2017 the data is not able not to be predicted. The reason may come from the other factors that not included in the data. Thus, the F1 score related to the two years is not high. 
 * The prediction performance difference between scikit-learn and Spark is not significant on the selected dataset. The performance among most of the selected classifiers is similar as well.
 * Scikit-learn is faster than Spark regarding the training time on our dataset on personal computers.
-* The oversampling method has a positive effect on highly imbalanced datasets(the year 2014 and 2017).
+* The oversampling method has a positive effect on highly imbalanced datasets (the year 2014 and 2017).
 
 Predicting a stock is worth buying or not is difficult, the correctness of the model highly depends on the training data. 
-High quality or satisfied data sets are efficient to forecast future stoke trends. For example, the results in the year 2015 as training and predict 2016.
+High quality or satisfied data sets are efficient to forecast future stoke trends. For example, the results in the year 2015 as training and predicting for 2016.
 This also follows the assumption that social influences have not been considered in the model. 
 For example, it could not forecast the stock trend due to COVID-19.
 
-The limitation of our experiments is that for case3 we only test the running performance on the local machines. In future work, we will extend our experiments to deploy on distributed infrastructure. And other data analysis techniques such as feature engineering and feature learning may also be explored to further improve the performance. 
+The limitation of our experiments is that for case3 we only test the running performance on the local machine. In future work, we will extend our experiments to deploy on distributed infrastructure. And other data analysis techniques such as feature engineering and feature learning may also be explored to further improve the performance. 
 
 
 Ref:
