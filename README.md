@@ -11,7 +11,7 @@ The main objective of this course project is to leverage the algorithms and tech
 
 The rapid progress in machine learning has revealed its strength in handling voluminous data streams, extracting informative features and tackling complexities. Various kinds of fields, such as computer vision, natural language processing, robots have seen the huge success of the advanced machine learning models.
 
-A rich line of machine learning approaches has also been introduced to predict the stock price in this area. Jigar et al (2015)[1] compare four prediction models, Artificial Neural Network (ANN), Support Vector Machine (SVM), random forest and naive-Bayes regarding the problem of prediction stock price index movement. Sotirios et al (2018)[2] analyzed the Extreme Gradient Boosting and Deep Neural Networks on the stock price prediction.
+A rich line of machine learning approaches has also been introduced to predict the stock price in this area. Jigar et al (2015) [1] compare four prediction models, Artificial Neural Network (ANN), Support Vector Machine (SVM), random forest and naive-Bayes regarding the problem of prediction stock price index movement. Sotirios et al (2018) [2] analyzed the Extreme Gradient Boosting and Deep Neural Networks on the stock price prediction.
 
 Consider the unexpected events may have severe impacts on short-term stock price, 
 rather than look at the historical stock price and treat it as a regression problem, we hope to test if we can provide long term gain prediction via machine learning methods. The main task is to tell if the stock will be worth buying based on the sufficient financial information of one company.
@@ -50,7 +50,7 @@ Multilayer perceptron classifier,
 Linear Support Vector Machine,
 Naive Bayes.
 
-III.Experiments and Results
+III. Experiments and Results
 ---
 
 To validate the proposed objective. We set up three cases of experiments as following:
@@ -59,7 +59,7 @@ To validate the proposed objective. We set up three cases of experiments as foll
 * Case3: Run the models on each dataset for 5 times for each year individually, and take the averaged running time to compare the execution time between scikit-learn and Spark.
 
 **Result-Case 1** 
-* Comparison of sklearn and spark(same year)
+* Comparison of sklearn and spark (same year)
 
 | Scikit-learn  |  2014  |  2015  |  2016  |  2017  |  2018  |  Averaged exclude 2014 and 2017  |
 | :-----------: |:------:|:-----: |:------:|:------:|:------:| :-------------------------------:|
