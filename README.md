@@ -39,8 +39,7 @@ Results comparison: We will report and analyze the performance of different algo
 **Technology:**
 
 For the libraries, we choose the MLlib and Scikit-learn.
-MLlib is Apache Spark's scalable machine learning library which is usable in different languages and platforms
-Scikit-learn is another popular free software machine learning library for the Python programming language, with plenty of built-in algorithms and can be easily implemented with user-friendly APIs.
+MLlib is Apache Spark's scalable machine learning library which is usable in different languages and platforms. It works under distributed systems with large datasets. Scikit-learn is another popular free software machine learning library for the Python programming language, with plenty of built-in algorithms and can be easily implemented with user-friendly APIs. It runs fast by in-memory processing with relatively small data sets.
 
 We select the following algorithms which can be found in the aforementioned two libraries:
 Logistic regression,
