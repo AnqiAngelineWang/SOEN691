@@ -180,3 +180,19 @@ Ref:
 
 [3] https://www.kaggle.com/cnic92/200-financial-indicators-of-us-stocks-20142018/data
 
+Appendix Material:
+---
+To reproduce the results:
+Case1: 
+Run Classification_Spark_Thisyear.py;
+Classification_Spark_Thisyear.py;
+Classification_Spark_FutureYear.py;
+Classification_sklearn_FutureYear.py
+
+Case2:
+Run Classification_sklearn_ThisYear_Oversample.py;Classification_sklearn_FutureYear_Oversample.py
+
+Case3:
+Classification_sklearn_ThisYear_RunningTime.py
+Classification_Spark_Thisyear——RunningTime.py
+
